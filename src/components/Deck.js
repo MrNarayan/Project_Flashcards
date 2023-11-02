@@ -115,10 +115,8 @@ function Deck() {
                         </button>
                         <button
                             onClick={() => handleDeleteDeck(deck)}
-                            className="btn btn-danger mx-1"
-                        >
-                            Delete
-                        </button>
+                            className="btn btn-danger mx-1 oi oi-trash"
+                        />
                     </div>
                 </div>
                 <h1>Cards</h1>

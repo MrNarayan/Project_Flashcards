@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { createCard, readDeck } from "../utils/api/index";
+import CardForm from "./CardForm";
 
 function AddCard() {
     const { deckId } = useParams();
@@ -49,10 +50,6 @@ function AddCard() {
         return response;
     }
 
-    async function handleDone() {
-        history.push(`/decks/${deckId}`);
-    }
-
     return (
         <div>
             <ol className="breadcrumb">
@@ -64,39 +61,12 @@ function AddCard() {
                 </li>
                 <li className="breadcrumb-item active">Add Card</li>
             </ol>
+            <h2>{deck.name}: Add Card</h2>
             <form onSubmit={handleSubmit}>
-                <h2>{deck.name}: Add Card</h2>
-                <div className="form-group">
-                    <label>Front</label>
-                    <textarea
-                        id="front"
-                        name="front"
-                        className="form-control"
-                        onChange={handleChange}
-                        type="text"
-                        value={newCard.front}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Back</label>
-                    <textarea
-                        id="back"
-                        name="back"
-                        className="form-control"
-                        onChange={handleChange}
-                        type="text"
-                        value={newCard.back}
-                    />
-                </div>
-                <button
-                    className="btn btn-secondary mx-1"
-                    onClick={() => handleDone()}
-                >
-                    Done
-                </button>
-                <button className="btn btn-primary mx-1" type="submit">
-                    Save
-                </button>
+                <CardForm
+                    card={newCard}
+                    handleChange={handleChange}
+                />
             </form>
         </div>
     );

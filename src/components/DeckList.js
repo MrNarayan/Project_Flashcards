@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { listDecks, deleteDeck } from "../utils/api/index";
 import { useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function DeckList() {
     const history = useHistory();
@@ -78,11 +76,9 @@ function DeckList() {
                                 </button>
                                 <button
                                     type="button"
-                                    className="btn btn-danger mx-1"
+                                    className="btn btn-danger mx-1 oi oi-trash"
                                     onClick={() => handleDelete(deck)}
-                                >
-                                    <FontAwesomeIcon icon={faTrash} />
-                                </button>
+                                />
                             </div>
                         </div>
                     );
