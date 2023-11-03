@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { readCard, readDeck, updateCard } from "../utils/api/index";
+import { readCard, readDeck, updateCard } from "../../utils/api/index";
 import CardForm from "./CardForm";
 
 function EditCard() {
@@ -77,16 +77,6 @@ function EditCard() {
                     card={card}
                     handleChange={handleChange}
                 />
-                <button
-                    type="button"
-                    className="btn btn-dark mr-2"
-                    onClick={() => history.push(`/decks/${deckId}`)}
-                >
-                    Cancel
-                </button>
-                <button type="submit" className="btn btn-success">
-                    Submit
-                </button>
             </form>
         </div>
     );

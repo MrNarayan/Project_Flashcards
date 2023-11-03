@@ -1,0 +1,63 @@
+import React, { useState, useEffect } from "react";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { readDeck, updateDeck } from "../../utils/api/index";
+import DeckForm from "./DeckForm";
+
+function EditDeck() {
+    const history = useHistory();
+    const {deckId} = useParams();
+    const [deck, setDeck] = useState(null);
+
+    useEffect(() => {
+        async function getDeck() {
+            const response = await readDeck(deckId);
+            setDeck(response);
+        }
+        getDeck();
+    }, [deckId])
+
+    function handleChange({ target }) {
+        setDeck({
+            ...deck,
+            [target.name]: target.value,
+        });
+    }
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const abortController = new AbortController();
+        if (deck.name === "" || deck.name === undefined || deck.description === "" || deck.description === undefined) {
+            alert("Empty name or description not allowed.");
+            return;
+        }
+        const response = await updateDeck({ ...deck }, abortController.signal);
+        history.push(`/decks/${deckId}`);
+        return response;
+    }
+
+    async function handleCancel() {
+        history.push(`/decks/${deckId}`);
+    }
+    if (!deck) return null;
+
+    return (
+        <div>
+            <ol className="breadcrumb">
+                <li className="breadcrumb-item">
+                    <Link to="/">Home</Link>
+                </li>
+                <li className="breadcrumb-item">
+                    <Link to={`/decks/${deckId}`}>{deck.name}</Link>
+                </li>
+                <li className="breadcrumb-item active">Edit Deck</li>
+            </ol>
+            <form onSubmit={handleSubmit}>
+                <h1>Edit Deck</h1>
+
+                <DeckForm deck={deck} handleChange={handleChange} handleCancel={handleCancel}/>
+            </form>
+        </div>
+    );
+}
+
+export default EditDeck;

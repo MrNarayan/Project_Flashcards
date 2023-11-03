@@ -2,13 +2,13 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Header from "./Header";
 import NotFound from "./NotFound";
-import DeckList from "../components/DeckList";
-import Deck from "../components/Deck";
-import Study from "../components/Study";
-import AddCard from "../components/AddCard";
-import EditCard from "../components/EditCard";
-import CreateDeck from "../components/CreateDeck";
-import EditDeck from "../components/EditDeck";
+import DeckList from "../components/Deck/DeckList";
+import Deck from "../components/Deck/Deck";
+import CreateDeck from "../components/Deck/CreateDeck";
+import EditDeck from "../components/Deck/EditDeck";
+import Study from "../components/Card/Study";
+import AddCard from "../components/Card/AddCard";
+import EditCard from "../components/Card/EditCard";
 
 function Layout() {
     return (
