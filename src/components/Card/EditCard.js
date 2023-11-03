@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import {useHistory, useParams } from "react-router-dom";
 import { readCard, readDeck, updateCard } from "../../utils/api/index";
 import CardForm from "./CardForm";
+import Breadcrumb from "../../Layout/Breadcrumb";
 
 function EditCard() {
     const { deckId, cardId } = useParams();
@@ -61,16 +62,10 @@ function EditCard() {
     }
 
     return (
-        <div>
-            <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                    <Link to="/">Home</Link>
-                </li>
-                <li className="breadcrumb-item">
-                    <Link to={`/decks/${deckId}`}>{deck.name}</Link>
-                </li>
-                <li className="breadcrumb-item active">Edit Card {cardId}</li>
-            </ol>
+        <div> <Breadcrumb
+            crumbs={["Home", "Deck", "Edit Card"]}
+            currentDeck={deck}
+        />
             <h2>Edit Card</h2>
             <form onSubmit={handleSubmit}>
                 <CardForm

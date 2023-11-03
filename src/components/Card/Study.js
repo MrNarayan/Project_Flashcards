@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { readDeck } from "../../utils/api/index";
+import Breadcrumb from "../../Layout/Breadcrumb";
 
 function Study() {
     const { deckId } = useParams();
@@ -21,7 +22,7 @@ function Study() {
             };
         }
         fetchData();
-    }, []);
+    }, [deckId]);
 
     function nextCard(index, total) {
         console.log(index);
@@ -113,15 +114,10 @@ function Study() {
 
     return (
         <div>
-            <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                    <Link to="/">Home</Link>
-                </li>
-                <li className="breadcrumb-item">
-                    <Link to={`/decks/${deckId}`}>{deck.name}</Link>
-                </li>
-                <li className="breadcrumb-item active">Study</li>
-            </ol>
+            <Breadcrumb
+            crumbs={["Home", "Deck", "Study"]}
+            currentDeck={deck}
+            />
             <div>
                 <h2>{`${deck.name}: Study`}</h2>
                 <div>

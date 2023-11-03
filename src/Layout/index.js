@@ -9,6 +9,7 @@ import EditDeck from "../components/Deck/EditDeck";
 import Study from "../components/Card/Study";
 import AddCard from "../components/Card/AddCard";
 import EditCard from "../components/Card/EditCard";
+import Breadcrumb from "./Breadcrumb";
 
 function Layout() {
     return (
@@ -20,6 +21,7 @@ function Layout() {
                         <DeckList />
                     </Route>
                     <Route path="/decks/new">
+                        <Breadcrumb crumbs={["Home", "Create Deck"]}/>
                         <CreateDeck />
                     </Route>
                     <Route exact path="/decks/:deckId">

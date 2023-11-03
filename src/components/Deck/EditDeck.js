@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
+import {useParams, useHistory } from "react-router-dom";
 import { readDeck, updateDeck } from "../../utils/api/index";
 import DeckForm from "./DeckForm";
+import Breadcrumb from "../../Layout/Breadcrumb";
 
 function EditDeck() {
     const history = useHistory();
@@ -42,15 +43,10 @@ function EditDeck() {
 
     return (
         <div>
-            <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                    <Link to="/">Home</Link>
-                </li>
-                <li className="breadcrumb-item">
-                    <Link to={`/decks/${deckId}`}>{deck.name}</Link>
-                </li>
-                <li className="breadcrumb-item active">Edit Deck</li>
-            </ol>
+            <Breadcrumb
+            crumbs={["Home", "Deck", "Edit Deck"]}
+            currentDeck={deck}
+        />
             <form onSubmit={handleSubmit}>
                 <h1>Edit Deck</h1>
 

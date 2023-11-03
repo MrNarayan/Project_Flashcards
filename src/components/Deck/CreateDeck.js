@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { createDeck } from "../../utils/api/index";
+import React, {useState} from "react";
+import {useHistory} from "react-router-dom";
+import {createDeck} from "../../utils/api/index";
 import DeckForm from "./DeckForm";
 
 function CreateDeck() {
@@ -20,15 +20,13 @@ function CreateDeck() {
         history.push("/");
         if (newDeck.name === "" || newDeck.name === undefined || newDeck.description === "" || newDeck.description === undefined) {
             alert("Please input name and description");
-            return;
         }
         else
         {
-            const response = await createDeck(
-                { ...newDeck },
+            return await createDeck(
+                {...newDeck},
                 abortController.signal
             );
-            return response;
         }
     }
 
@@ -38,12 +36,6 @@ function CreateDeck() {
 
     return (
         <div>
-            <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                    <Link to="/">Home</Link>
-                </li>
-                <li className="breadcrumb-item active">Create Deck</li>
-            </ol>
             <form onSubmit={(event) => handleSubmit(event)}>
                 <h1>Create Deck</h1>
                 <DeckForm deck={newDeck} handleChange={handleChange} handleCancel={handleCancel}/>
