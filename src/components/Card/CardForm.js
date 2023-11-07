@@ -1,9 +1,10 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 
 // Component to be used in both the Add Card and Edit Card Screens
 
-function CardForm({ card, handleChange, deckId}) {
+function CardForm({ card, handleChange}) {
+    const { deckId } = useParams();
     const history = useHistory();
 
   return (
@@ -12,7 +13,7 @@ function CardForm({ card, handleChange, deckId}) {
         <label htmlFor="cardFront">Front</label>
         <textarea
           id="cardFront"
-          name="cardFront"
+          name="front"
           className="form-control"
           placeholder="Front side of card"
           rows="3"
@@ -24,7 +25,7 @@ function CardForm({ card, handleChange, deckId}) {
         <label htmlFor="cardBack">Back</label>
         <textarea
           id="cardBack"
-          name="cardBack"
+          name="back"
           className="form-control"
           placeholder="Back side of card"
           rows="3"
