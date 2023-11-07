@@ -4,8 +4,13 @@ import {createDeck} from "../../utils/api/index";
 import DeckForm from "./DeckForm";
 
 function CreateDeck() {
+    const initialState = {
+        name: "",
+        description: "",
+    };
+
     const history = useHistory();
-    const [newDeck, setNewDeck] = useState({});
+    const [newDeck, setNewDeck] = useState(initialState);
 
     function handleChange({ target }) {
         setNewDeck({
@@ -17,17 +22,16 @@ function CreateDeck() {
     async function handleSubmit(event) {
         event.preventDefault();
         const abortController = new AbortController();
-        history.push("/");
         if (newDeck.name === "" || newDeck.name === undefined || newDeck.description === "" || newDeck.description === undefined) {
             alert("Please input name and description");
+            return;
         }
-        else
-        {
-            return await createDeck(
-                {...newDeck},
-                abortController.signal
-            );
-        }
+        const response =  await createDeck(
+            {...newDeck},
+            abortController.signal
+        );
+        history.push("/");
+        return response;
     }
 
     async function handleCancel() {

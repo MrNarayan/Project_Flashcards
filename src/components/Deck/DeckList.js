@@ -27,13 +27,8 @@ function DeckList() {
             window.confirm("Delete this deck?\n\nYou will not be able to recover it.")
         ) {
             const abortController = new AbortController();
-            try{
-                history.go(0);
-                return await deleteDeck(deck.id, abortController.signal);
-            } catch (error) {
-                    console.log(error) ;
-            }
-            return () => abortController.abort();
+            history.go(0);
+            return await deleteDeck(deck.id, abortController.signal);
         }
     }
 
