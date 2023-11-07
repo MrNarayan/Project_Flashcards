@@ -24,17 +24,21 @@ function DeckList() {
 
     async function handleDelete(deck) {
         if (
-            window.confirm(
-                `Delete this deck? You will not be able to recover it`
-            )
+            window.confirm("Delete this deck?\n\nYou will not be able to recover it.")
         ) {
-            history.go(0);
-            return await deleteDeck(deck.id);
+            const abortController = new AbortController();
+            try{
+                history.go(0);
+                return await deleteDeck(deck.id, abortController.signal);
+            } catch (error) {
+                    console.log(error) ;
+            }
+            return () => abortController.abort();
         }
     }
 
     return (
-        <div className="container">
+        <div className="decks-container" style={{ width: "100%" }}>
             <button
                 type="button"
                 className="btn btn-success mb-3 btn-lg"
@@ -42,12 +46,12 @@ function DeckList() {
             >
                 <span className="oi oi-plus" /> Create Deck
             </button>
-            <div className="card-deck">
+            <div className="card-deck" style={{ width: "100%" }}>
                 {decks.map((deck) => {
                     return (
                         <div
                             className="card"
-                            style={{ width: "30rem" }}
+                            style={{ minWidth: "40%", maxWidth: "40%" }}
                             key={deck.id}
                         >
                             <div className="card-body">
@@ -60,25 +64,29 @@ function DeckList() {
                                 <div className="card-text">
                                     {`${deck.description}`}
                                 </div>
-                                <button
-                                    type="button"
-                                    className="btn btn-dark mr-2"
-                                    onClick={() => history.push(`/decks/${deck.id}`)}
-                                >
-                                    <span className="oi oi-eye" /> View
-                                </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-primary mr-2"
-                                    onClick={() => history.push(`/decks/${deck.id}/study`)}
-                                >
-                                    <span className="oi oi-book" /> Study
-                                </button>
+                                <div className="button-container">
+                                <div>
+                                    <button
+                                        type="button"
+                                        className="btn btn-dark mr-2"
+                                        onClick={() => history.push(`/decks/${deck.id}`)}
+                                    >
+                                        <span className="oi oi-eye" /> View
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary mr-2"
+                                        onClick={() => history.push(`/decks/${deck.id}/study`)}
+                                    >
+                                        <span className="oi oi-book" /> Study
+                                    </button>
+                                </div>
                                 <button
                                     type="button"
                                     className="btn btn-danger mx-1 oi oi-trash"
                                     onClick={() => handleDelete(deck)}
                                 />
+                                </div>
                             </div>
                         </div>
                     );
