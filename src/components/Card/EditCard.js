@@ -25,23 +25,16 @@ function EditCard() {
     useEffect(() => {
         async function fetchData() {
             const abortController = new AbortController();
-            try {
-                const cardResponse = await readCard(
-                    cardId,
-                    abortController.signal
-                );
-                const deckResponse = await readDeck(
-                    deckId,
-                    abortController.signal
-                );
-                setCard(cardResponse);
-                setDeck(deckResponse);
-            } catch (error) {
-                console.error("Something went wrong", error);
-            }
-            return () => {
-                abortController.abort();
-            };
+            const cardResponse = await readCard(
+                cardId,
+                abortController.signal
+            );
+            const deckResponse = await readDeck(
+                deckId,
+                abortController.signal
+            );
+            setCard(cardResponse);
+            setDeck(deckResponse);
         }
         fetchData();
     }, []);

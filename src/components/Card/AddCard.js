@@ -18,15 +18,8 @@ function AddCard() {
     useEffect(() => {
         async function fetchData() {
             const abortController = new AbortController();
-            try {
-                const response = await readDeck(deckId, abortController.signal);
-                setDeck(response);
-            } catch (error) {
-                console.error("Something went wrong", error);
-            }
-            return () => {
-                abortController.abort();
-            };
+            const response = await readDeck(deckId, abortController.signal);
+            setDeck(response);
         }
         fetchData();
     }, [deckId]);
@@ -46,7 +39,7 @@ function AddCard() {
             { ...newCard },
             abortController.signal
         );
-        history.go(0);
+        history.push(`/decks/${deckId}`);
         setNewCard(initialState);
         return response;
     }

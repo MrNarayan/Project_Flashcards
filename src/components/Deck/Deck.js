@@ -12,16 +12,12 @@ function Deck() {
     useEffect(() => {
         async function fetchData() {
             const abortController = new AbortController();
-            try {
-                const deckResponse = await readDeck(
-                    deckId,
-                    abortController.signal
-                );
-                setDeck(deckResponse);
-                setCards(deckResponse.cards);
-            } catch (error) {
-                console.error("Something went wrong", error);
-            }
+            const deckResponse = await readDeck(
+                deckId,
+                abortController.signal
+            );
+            setDeck(deckResponse);
+            setCards(deckResponse.cards);
             return () => {
                 abortController.abort();
             };
@@ -36,15 +32,8 @@ function Deck() {
             )
         ) {
             const abortController = new AbortController();
-            try {
-                history.push("/");
-                return await deleteDeck(deck.id, abortController.signal);
-            } catch (error) {
-                console.error("Something went wrong", error);
-            }
-            return () => {
-                abortController.abort();
-            };
+            history.push("/");
+            return await deleteDeck(deck.id, abortController.signal);
         }
     }
 
@@ -55,15 +44,8 @@ function Deck() {
             )
         ) {
             const abortController = new AbortController();
-            try {
-                history.go(0);
-                return await deleteCard(card.id, abortController.signal);
-            } catch (error) {
-                console.error("Something went wrong", error);
-            }
-            return () => {
-                abortController.abort();
-            };
+            history.go(0);
+            return await deleteCard(card.id, abortController.signal);
         }
     }
 
