@@ -22,6 +22,9 @@ function AddCard() {
             setDeck(response);
         }
         fetchData();
+        return () => {
+            setNewCard({});
+        };
     }, [deckId]);
 
     function handleChange({ target }) {
@@ -40,7 +43,7 @@ function AddCard() {
             abortController.signal
         );
         history.push(`/decks/${deckId}`);
-        setNewCard(initialState);
+        setNewCard({});
         return response;
     }
 

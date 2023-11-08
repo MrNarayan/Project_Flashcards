@@ -31,9 +31,8 @@ function Deck() {
                 `Delete this deck? You will not be able to recover it`
             )
         ) {
-            const abortController = new AbortController();
+            await deleteDeck(deck.id);
             history.push("/");
-            return await deleteDeck(deck.id, abortController.signal);
         }
     }
 
@@ -43,9 +42,8 @@ function Deck() {
                 `Delete this card? You will not be able to recover it`
             )
         ) {
-            const abortController = new AbortController();
-            history.go(0);
-            return await deleteCard(card.id, abortController.signal);
+            await deleteCard(card.id);
+            history.push("/");
         }
     }
 
